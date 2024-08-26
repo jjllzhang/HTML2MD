@@ -1,0 +1,1204 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>全国密码技术竞赛-模拟练习</title>
+    <meta name="keywords" content="multi layer, free website templates, XHTML CSS" />
+    <meta name="description" content="Multi Layer - free website template provided by templatemo.com" />
+    <style type="">
+        .zq{
+	color: green;
+}
+.cw{
+	color: red;
+}
+</style>
+    <link href="../css/exercise_layout.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../resources/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../resources/js/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#main>ul>li").click(function () {
+                document.documentElement.scrollTop = document.body.scrollTop = 0;
+                $("#tab_top>li").eq($(this).index()).addClass("selected").siblings().removeClass();
+                $("#tab_bottom>li").eq($(this).index()).addClass("selected").siblings().removeClass();
+                //$("#main>div").hide().eq($(this).index()).show();
+                //alert($(this).html());
+                if ($(this).html() == "单项选择题") {
+                    $("#single_test").show();
+                    $("#multiple_test").hide();
+                    $("#trueorfalse_test").hide();
+                } else if ($(this).html() == "多项选择题") {
+                    $("#single_test").hide();
+                    $("#multiple_test").show();
+                    $("#trueorfalse_test").hide();
+                } else if ($(this).html() == "判断题") {
+                    $("#single_test").hide();
+                    $("#multiple_test").hide();
+                    $("#trueorfalse_test").show();
+                }
+                $(this).index() == 2 ? $("#exercise_submit").show() : $("#exercise_submit").hide();
+            });
+        });
+        function check_paper() {
+            var score = 0;
+
+            for (var t = 1; t < 40; t++) {
+                $("#a" + t).show();
+                if (t < 21) {
+                    $("#b" + t).show();
+                    $("#c" + t).show();
+                }
+            }
+
+
+
+            $("#single_test input[type='radio']:checked").each(function (i) {
+                var reS = $(this).parent().parent().children("li:last").find("input");
+                var reSingle = reS.val();
+                var single = this.value;
+                //alert("单选"+i+"正确答案："+reSingle+"，学生答案："+single);
+
+                if (reSingle == single) {
+                    score += 1;
+                    reS.removeClass("cw");
+                    reS.addClass("zq");
+                }
+
+            });
+
+            $("#multiple_test ul").each(function (index, element) {
+
+                var reM = $(this).children("li:last").find("input");
+                var reMultiple = reM.val();
+                var name = $(element).children().children().attr("name");
+                var ms = "";
+                $("input[name='" + name + "']:checkbox").each(function (i, e) {
+                    if ($(e).prop("checked")) {
+                        ms += $(e).val();
+                    }
+                });
+                //alert("多选"+index+"正确答案："+reMultiple+"，学生答案："+ms);
+                if (reMultiple == ms) {
+                    score += 2;
+                    reM.removeClass("cw");
+                    reM.addClass("zq");
+                }
+            });
+            $("#trueorfalse_test input[type='radio']:checked").each(function (i) {
+                var reT = $(this).parent().parent().children(":last").find("input");
+                var reTrueOrFalse = reT.val();
+                var trueOrFalse = this.value;
+                //alert("判断"+i+"正确答案："+reTrueOrFalse+"，学生答案："+trueOrFalse);
+                if (reTrueOrFalse == trueOrFalse) {
+                    score += 1;
+                    reT.removeClass("cw");
+                    reT.addClass("zq");
+                }
+            });
+
+            $("input[name='pdtda']").each(function () {
+                var bo = $(this).val();
+                if (bo == "T") {
+                    $(this).val("正确");
+                } else if (bo == "F") {
+                    $(this).val("错误");
+                }
+
+            });
+
+            $("#esjj").hide();
+
+            alert("你的分数是：" + score);
+            $("#df").html("你的分数是：" + score);
+            $("#dxt").click();
+            //if (confirm("你的分数是："+score))  {  
+            //location.href='../login/initlogin.do';
+            //	location.href='../toIndex/indexinit.do';
+            //}  	
+
+        }
+        function fh() {
+            location.href = '../toIndex/indexinit.do';
+        }
+    </script>
+    <style>
+        .span5 {
+            display: inline;
+            float: right;
+            margin-top: -15px;
+            margin-right: 350px;
+            font-size: 50px;
+            color: rgb(255, 255, 255);
+            font-family: "汉仪粗黑简";
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #0F6;
+        }
+
+        #banner {
+            width: 100%;
+            background-size: 100% 100%;
+            clear: both;
+            height: 40px;
+            padding: 50px 30px;
+            overflow: hidden;
+            background-image: url(../images/11112.png);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="banner">
+        <div><span class="span5">2024第九届全国密码技术竞赛</span></div>
+    </div>
+
+    <div id="main">
+        <p id="exercise_title">模拟练习</p>
+
+        <div><input type="button" value="返回" onclick="fh();"
+                style="width: 67px;height: 28px;margin-left: 290px; margin-top: -95px;" /></div>
+        <div id="df" style="font-weight: bold;font-size: 18px;"></div>
+        <ul id="tab_top">
+            <li id="dxt" class="selected">单项选择题</li>
+            <li>多项选择题</li>
+            <li>判断题</li>
+        </ul>
+        <div id="single_test">
+            <a name="name1"></a>
+            <h2>一.单项选择题（共40题，每题1分）</h2>
+
+            <div class="des">
+                <p>1.用来破译古典密码的频度分析法主要利用自然语言中字母出现的频度不同的特性。请问英文字母中出现频度最高的是哪一个（ ）</p>
+                <ul>
+                    <li><input name="12316" type="radio" value="A" />&nbsp;A. A</li>
+                    <li><input name="12316" type="radio" value="B" />&nbsp;B.C</li>
+                    <li><input name="12316" type="radio" value="C" />&nbsp;C. I </li>
+                    <li><input name="12316" type="radio" value="D" />&nbsp;D.E</li>
+                    <li id="a1" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="1" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>2.通常使用( )验证消息的完整性。</p>
+                <ul>
+                    <li><input name="12333" type="radio" value="A" />&nbsp;A. 消息摘要</li>
+                    <li><input name="12333" type="radio" value="B" />&nbsp;B. 数字信封</li>
+                    <li><input name="12333" type="radio" value="C" />&nbsp;C. 对称解密算法</li>
+                    <li><input name="12333" type="radio" value="D" />&nbsp;D. 公钥解密算法</li>
+                    <li id="a2" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="2" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>3.AES算法中，当密钥长度是256位时，分组长度是128位，需要进行加密轮数为（ ）。</p>
+                <ul>
+                    <li><input name="12287" type="radio" value="A" />&nbsp;A.6</li>
+                    <li><input name="12287" type="radio" value="B" />&nbsp;B.10</li>
+                    <li><input name="12287" type="radio" value="C" />&nbsp;C.12</li>
+                    <li><input name="12287" type="radio" value="D" />&nbsp;D.14</li>
+                    <li id="a3" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="3" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>4.用SM2算法实现一个对1024比特明文的加密，需要（ ）次点乘运算。</p>
+                <ul>
+                    <li><input name="12282" type="radio" value="A" />&nbsp;A.1</li>
+                    <li><input name="12282" type="radio" value="B" />&nbsp;B.2</li>
+                    <li><input name="12282" type="radio" value="C" />&nbsp;C.4</li>
+                    <li><input name="12282" type="radio" value="D" />&nbsp;D.8</li>
+                    <li id="a4" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="4" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>5.下面哪个是分组密码（）。</p>
+                <ul>
+                    <li><input name="12328" type="radio" value="A" />&nbsp;A. 凯撒密码</li>
+                    <li><input name="12328" type="radio" value="B" />&nbsp;B. AES</li>
+                    <li><input name="12328" type="radio" value="C" />&nbsp;C. 轮转机</li>
+                    <li><input name="12328" type="radio" value="D" />&nbsp;D. 隐写术</li>
+                    <li id="a5" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="5" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>6.一个安全的密码杂凑函数需要能够抵抗生日攻击等强抗碰撞性攻击。生日攻击即：在随机抽出的N个人中，N至少为（ ），就能保证至少两个人生日一样（排除2月29日的情况）的概率大于二分之一。（ ）</p>
+                <ul>
+                    <li><input name="12294" type="radio" value="A" />&nbsp;A.20</li>
+                    <li><input name="12294" type="radio" value="B" />&nbsp;B.23</li>
+                    <li><input name="12294" type="radio" value="C" />&nbsp;C.150</li>
+                    <li><input name="12294" type="radio" value="D" />&nbsp;D.182</li>
+                    <li id="a6" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="6" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>7.Rabin密码体制的安全性是基于（ ）。</p>
+                <ul>
+                    <li><input name="12343" type="radio" value="A" />&nbsp;A.大整数分解问题</li>
+                    <li><input name="12343" type="radio" value="B" />&nbsp;B.欧拉定理</li>
+                    <li><input name="12343" type="radio" value="C" />&nbsp;C. 离散对数问题</li>
+                    <li><input name="12343" type="radio" value="D" />&nbsp;D. 背包问题</li>
+                    <li id="a7" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="7" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>8.一个同步流密码具有很高的密码强度主要取决于（ ）。</p>
+                <ul>
+                    <li><input name="12330" type="radio" value="A" />&nbsp;A. 密钥流生成器的设计</li>
+                    <li><input name="12330" type="radio" value="B" />&nbsp;B. 密钥长度</li>
+                    <li><input name="12330" type="radio" value="C" />&nbsp;C. 明文长度</li>
+                    <li><input name="12330" type="radio" value="D" />&nbsp;D. 密钥复杂度</li>
+                    <li id="a8" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="8" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>9.后量子公钥密码（PQC）是由NIST于（ ）正式启动 PQC 项目，面向全球征集PQC算法，推动标准化。</p>
+                <ul>
+                    <li><input name="12335" type="radio" value="A" />&nbsp;A.2015年12月</li>
+                    <li><input name="12335" type="radio" value="B" />&nbsp;B.2016年12月</li>
+                    <li><input name="12335" type="radio" value="C" />&nbsp;C.2017年12月</li>
+                    <li><input name="12335" type="radio" value="D" />&nbsp;D.2018年12月</li>
+                    <li id="a9" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="9" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>10.国家密码管理局于（ ）年公布了SM2算法。</p>
+                <ul>
+                    <li><input name="12312" type="radio" value="A" />&nbsp;A.1996</li>
+                    <li><input name="12312" type="radio" value="B" />&nbsp;B.2001</li>
+                    <li><input name="12312" type="radio" value="C" />&nbsp;C.2008</li>
+                    <li><input name="12312" type="radio" value="D" />&nbsp;D.2010</li>
+                    <li id="a10" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="10" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>11.基域选择Fp-256时，SM2算法的数字签名的私钥长度为（ ）。</p>
+                <ul>
+                    <li><input name="12308" type="radio" value="A" />&nbsp;A.128</li>
+                    <li><input name="12308" type="radio" value="B" />&nbsp;B.256</li>
+                    <li><input name="12308" type="radio" value="C" />&nbsp;C.384</li>
+                    <li><input name="12308" type="radio" value="D" />&nbsp;D.512</li>
+                    <li id="a11" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="11" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>12.在IPSec VPN协议中，SM4分组密码算法的属性值是（ ）。</p>
+                <ul>
+                    <li><input name="12305" type="radio" value="A" />&nbsp;A.128</li>
+                    <li><input name="12305" type="radio" value="B" />&nbsp;B.129</li>
+                    <li><input name="12305" type="radio" value="C" />&nbsp;C.64</li>
+                    <li><input name="12305" type="radio" value="D" />&nbsp;D.256</li>
+                    <li id="a12" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="12" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>13.Joe接收了由Grace签名的信息，请问Joe应该使用哪个密钥来验证签名？（ ）</p>
+                <ul>
+                    <li><input name="12320" type="radio" value="A" />&nbsp;A. Joe的公钥</li>
+                    <li><input name="12320" type="radio" value="B" />&nbsp;B.Joe的私钥</li>
+                    <li><input name="12320" type="radio" value="C" />&nbsp;C. Grace的公钥</li>
+                    <li><input name="12320" type="radio" value="D" />&nbsp;D. Grace的私钥</li>
+                    <li id="a13" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="13" value="C" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>14.在SM3算法中，分组长度为（ ）位。</p>
+                <ul>
+                    <li><input name="12337" type="radio" value="A" />&nbsp;A.56</li>
+                    <li><input name="12337" type="radio" value="B" />&nbsp;B.64</li>
+                    <li><input name="12337" type="radio" value="C" />&nbsp;C.488</li>
+                    <li><input name="12337" type="radio" value="D" />&nbsp;D.512</li>
+                    <li id="a14" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="14" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>15.在RSA公钥密码算法中，欧拉函数Ф(77)的值为（ ）。</p>
+                <ul>
+                    <li><input name="12300" type="radio" value="A" />&nbsp;A.63</li>
+                    <li><input name="12300" type="radio" value="B" />&nbsp;B.60</li>
+                    <li><input name="12300" type="radio" value="C" />&nbsp;C.48</li>
+                    <li><input name="12300" type="radio" value="D" />&nbsp;D.49</li>
+                    <li id="a15" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="15" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>16.如果SM2的密文长度是2048比特，那么相应明文长度是（ ）比特。</p>
+                <ul>
+                    <li><input name="12309" type="radio" value="A" />&nbsp;A.1024</li>
+                    <li><input name="12309" type="radio" value="B" />&nbsp;B.1280</li>
+                    <li><input name="12309" type="radio" value="C" />&nbsp;C.2048</li>
+                    <li><input name="12309" type="radio" value="D" />&nbsp;D.2816</li>
+                    <li id="a16" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="16" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>17.移位密码通常可用来加密普通的英文句子，假设其密钥为K=11，将明文“wewillmeet”加密后，密文为（ ）。</p>
+                <ul>
+                    <li><input name="12321" type="radio" value="A" />&nbsp;A. JQJTXXYQQG</li>
+                    <li><input name="12321" type="radio" value="B" />&nbsp;B. HPHTWWXPPE</li>
+                    <li><input name="12321" type="radio" value="C" />&nbsp;C. JEJUZZXEEQ</li>
+                    <li><input name="12321" type="radio" value="D" />&nbsp;D. HQHTXXWQQF</li>
+                    <li id="a17" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="17" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>18.利用SM2公钥密码体制两次加密相同的明文，密文相同吗？（）</p>
+                <ul>
+                    <li><input name="12581" type="radio" value="A" />&nbsp;A.不同 </li>
+                    <li><input name="12581" type="radio" value="B" />&nbsp;B.相同</li>
+                    <li><input name="12581" type="radio" value="C" />&nbsp;C.有时相同，也有不同 </li>
+                    <li><input name="12581" type="radio" value="D" />&nbsp;D.根据具体情况 </li>
+                    <li id="a18" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="18" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>19.SM3密码杂凑函数的迭代结构是（）。</p>
+                <ul>
+                    <li><input name="12585" type="radio" value="A" />&nbsp;A.Feistle迭代结构
+                    </li>
+                    <li><input name="12585" type="radio" value="B" />&nbsp;B. SP结构</li>
+                    <li><input name="12585" type="radio" value="C" />&nbsp;C.MD结构
+                    </li>
+                    <li><input name="12585" type="radio" value="D" />&nbsp;D.Sponge结构</li>
+                    <li id="a19" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="19" value="C" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>20.SM2算法中的加密算法达到的安全性是（ ）。</p>
+                <ul>
+                    <li><input name="12597" type="radio" value="A" />&nbsp;A.OW-CPA</li>
+                    <li><input name="12597" type="radio" value="B" />&nbsp;B.IND-CPA</li>
+                    <li><input name="12597" type="radio" value="C" />&nbsp;C.IND-CCA2</li>
+                    <li><input name="12597" type="radio" value="D" />&nbsp;D.NM-CPA</li>
+                    <li id="a20" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="20" value="C" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>21.祖冲之（ZUC）序列密码主算法一次输出的密钥长度为多少？（）</p>
+                <ul>
+                    <li><input name="12584" type="radio" value="A" />&nbsp;A.32比特
+                    </li>
+                    <li><input name="12584" type="radio" value="B" />&nbsp;B. 64比特 </li>
+                    <li><input name="12584" type="radio" value="C" />&nbsp;C.128比特
+                    </li>
+                    <li><input name="12584" type="radio" value="D" />&nbsp;D.256比特 </li>
+                    <li id="a21" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="21" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>22.SM4算法的密钥和明文长度分别是多少比特（ ）。</p>
+                <ul>
+                    <li><input name="12596" type="radio" value="A" />&nbsp;A.128、256</li>
+                    <li><input name="12596" type="radio" value="B" />&nbsp;B.128、128</li>
+                    <li><input name="12596" type="radio" value="C" />&nbsp;C.256、128</li>
+                    <li><input name="12596" type="radio" value="D" />&nbsp;D.256、256</li>
+                    <li id="a22" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="22" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>23.SM3密码杂凑算法采用什么结构？</p>
+                <ul>
+                    <li><input name="12606" type="radio" value="A" />&nbsp;A.MD结构</li>
+                    <li><input name="12606" type="radio" value="B" />&nbsp;B.Sponge结构</li>
+                    <li><input name="12606" type="radio" value="C" />&nbsp;C.HAIFA结构</li>
+                    <li><input name="12606" type="radio" value="D" />&nbsp;D.宽管道结构</li>
+                    <li id="a23" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="23" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>24.SM3密码杂凑算法是中国国家密码管理局公布的中国商用密码杂凑算法标准。SM3密码杂凑算法是哪种类型的算法？</p>
+                <ul>
+                    <li><input name="12603" type="radio" value="A" />&nbsp;A.分组密码算法</li>
+                    <li><input name="12603" type="radio" value="B" />&nbsp;B.公钥密码算法</li>
+                    <li><input name="12603" type="radio" value="C" />&nbsp;C.数字签名算法</li>
+                    <li><input name="12603" type="radio" value="D" />&nbsp;D.杂凑函数</li>
+                    <li id="a24" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="24" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>25.SM2算法中的密钥交换算法支持（ ）方密钥交换。</p>
+                <ul>
+                    <li><input name="12599" type="radio" value="A" />&nbsp;A.2</li>
+                    <li><input name="12599" type="radio" value="B" />&nbsp;B.3</li>
+                    <li><input name="12599" type="radio" value="C" />&nbsp;C.4</li>
+                    <li><input name="12599" type="radio" value="D" />&nbsp;D.多</li>
+                    <li id="a25" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="25" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>26.SM3密码杂凑算法的链接变量长度为多少比特？</p>
+                <ul>
+                    <li><input name="12604" type="radio" value="A" />&nbsp;A.128</li>
+                    <li><input name="12604" type="radio" value="B" />&nbsp;B.224</li>
+                    <li><input name="12604" type="radio" value="C" />&nbsp;C.256</li>
+                    <li><input name="12604" type="radio" value="D" />&nbsp;D.512</li>
+                    <li id="a26" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="26" value="C" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>27.在SM4算法中轮密钥的长度为（ ）位。</p>
+                <ul>
+                    <li><input name="12602" type="radio" value="A" />&nbsp;A.32</li>
+                    <li><input name="12602" type="radio" value="B" />&nbsp;B.128</li>
+                    <li><input name="12602" type="radio" value="C" />&nbsp;C.256</li>
+                    <li><input name="12602" type="radio" value="D" />&nbsp;D.512</li>
+                    <li id="a27" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="27" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>28.SM3密码杂凑算法的压缩函数一共多少轮？</p>
+                <ul>
+                    <li><input name="12605" type="radio" value="A" />&nbsp;A.32</li>
+                    <li><input name="12605" type="radio" value="B" />&nbsp;B.64</li>
+                    <li><input name="12605" type="radio" value="C" />&nbsp;C.80</li>
+                    <li><input name="12605" type="radio" value="D" />&nbsp;D.120</li>
+                    <li id="a28" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="28" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>29.SM4分组密码算法，该算法的分组长度为128比特，密钥长度为（ ）。</p>
+                <ul>
+                    <li><input name="12595" type="radio" value="A" />&nbsp;A.64比特</li>
+                    <li><input name="12595" type="radio" value="B" />&nbsp;B.128比特</li>
+                    <li><input name="12595" type="radio" value="C" />&nbsp;C.192比特</li>
+                    <li><input name="12595" type="radio" value="D" />&nbsp;D.256比特</li>
+                    <li id="a29" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="29" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>30.我国商用密码算法SM2是一种椭圆曲线公钥密码算法，其推荐的密钥长度为多少？
+                </p>
+                <ul>
+                    <li><input name="12594" type="radio" value="A" />&nbsp;A.128bit</li>
+                    <li><input name="12594" type="radio" value="B" />&nbsp;B.256bit
+                    </li>
+                    <li><input name="12594" type="radio" value="C" />&nbsp;C.192bit
+                    </li>
+                    <li><input name="12594" type="radio" value="D" />&nbsp;D.512bit </li>
+                    <li id="a30" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="30" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>31.SM4加密算法是（ ）。</p>
+                <ul>
+                    <li><input name="12591" type="radio" value="A" />&nbsp;A.分组密码体制</li>
+                    <li><input name="12591" type="radio" value="B" />&nbsp;B.序列密码体制</li>
+                    <li><input name="12591" type="radio" value="C" />&nbsp;C.置换密码体制</li>
+                    <li><input name="12591" type="radio" value="D" />&nbsp;D.替代密码体制</li>
+                    <li id="a31" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="31" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>32.SM2算法的安全性基于（）困难假设？</p>
+                <ul>
+                    <li><input name="12587" type="radio" value="A" />&nbsp;A.双线性映射</li>
+                    <li><input name="12587" type="radio" value="B" />&nbsp;B.椭圆曲线离散对数</li>
+                    <li><input name="12587" type="radio" value="C" />&nbsp;C.多线性映射</li>
+                    <li><input name="12587" type="radio" value="D" />&nbsp;D.丢番图方程求解</li>
+                    <li id="a32" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="32" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>33.ZUC算法是一个面向字的序列密码，密钥长度和初始向量的长度分别为多少？（）</p>
+                <ul>
+                    <li><input name="12582" type="radio" value="A" />&nbsp;A. 64比特
+                    </li>
+                    <li><input name="12582" type="radio" value="B" />&nbsp;B.128比特
+                    </li>
+                    <li><input name="12582" type="radio" value="C" />&nbsp;C.256比特</li>
+                    <li><input name="12582" type="radio" value="D" />&nbsp;D.1024比特 </li>
+                    <li id="a33" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="33" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>34.SM3密码杂凑算法输入的最大消息长度不超过多少比特？</p>
+                <ul>
+                    <li><input name="12609" type="radio" value="A" />&nbsp;A.2^32 </li>
+                    <li><input name="12609" type="radio" value="B" />&nbsp;B.2^64 </li>
+                    <li><input name="12609" type="radio" value="C" />&nbsp;C.2^128 </li>
+                    <li><input name="12609" type="radio" value="D" />&nbsp;D.任意长度</li>
+                    <li id="a34" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="34" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>35.SM3密码杂凑算法的压缩函数一共有几种不同的布尔函数？</p>
+                <ul>
+                    <li><input name="12607" type="radio" value="A" />&nbsp;A.2</li>
+                    <li><input name="12607" type="radio" value="B" />&nbsp;B.3</li>
+                    <li><input name="12607" type="radio" value="C" />&nbsp;C.4</li>
+                    <li><input name="12607" type="radio" value="D" />&nbsp;D.5</li>
+                    <li id="a35" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="35" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>36.在2012年，国家密码管理局发布了一系列国产密码算法作为密码行业标准，其中（ ）是分组密码。</p>
+                <ul>
+                    <li><input name="12497" type="radio" value="A" />&nbsp;A.祖冲之算法</li>
+                    <li><input name="12497" type="radio" value="B" />&nbsp;B.SM4算法</li>
+                    <li><input name="12497" type="radio" value="C" />&nbsp;C.SM2算法</li>
+                    <li><input name="12497" type="radio" value="D" />&nbsp;D.SM3算法</li>
+                    <li id="a36" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="36" value="B" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>37.GM/T 0006《密码应用标识规范》定义的标识中，不包括以下哪种分组密码工作模式？（ ）</p>
+                <ul>
+                    <li><input name="12501" type="radio" value="A" />&nbsp;A.ECB</li>
+                    <li><input name="12501" type="radio" value="B" />&nbsp;B.CBC</li>
+                    <li><input name="12501" type="radio" value="C" />&nbsp;C.CFB</li>
+                    <li><input name="12501" type="radio" value="D" />&nbsp;D.CTR</li>
+                    <li id="a37" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="37" value="D" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>38.GM/T 0035《射频识别系统密码应用技术要求》第5部分，密钥体制包括（ ）类。</p>
+                <ul>
+                    <li><input name="12489" type="radio" value="A" />&nbsp;A.2</li>
+                    <li><input name="12489" type="radio" value="B" />&nbsp;B.3</li>
+                    <li><input name="12489" type="radio" value="C" />&nbsp;C.4</li>
+                    <li><input name="12489" type="radio" value="D" />&nbsp;D.5</li>
+                    <li id="a38" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="38" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>39.GM/T 0006《密码应用标识规范》中的标识符在跨平台传输时，应采用（ ）字节顺序进行传输。</p>
+                <ul>
+                    <li><input name="12500" type="radio" value="A" />&nbsp;A.网络字节顺序(Big-endian)</li>
+                    <li><input name="12500" type="radio" value="B" />&nbsp;B.小端(Little-endian)</li>
+                    <li><input name="12500" type="radio" value="C" />&nbsp;C.网络字节序或小端</li>
+                    <li><input name="12500" type="radio" value="D" />&nbsp;D.其它顺序</li>
+                    <li id="a39" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="39" value="A" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>40.GM/T 0005《随机性检测规范》中，以下关于“显著性水平”，正确的说法是（ ）</p>
+                <ul>
+                    <li><input name="12509" type="radio" value="A" />&nbsp;A.随机性检测中错误地判断某一个随机序列为非随机序列的概率</li>
+                    <li><input name="12509" type="radio" value="B" />&nbsp;B.随机性检测中判断某一个随机序列为非随机序列的概率</li>
+                    <li><input name="12509" type="radio" value="C" />&nbsp;C.随机性检测中判断某一个随机序列为随机序列的概率</li>
+                    <li><input name="12509" type="radio" value="D" />&nbsp;D.随机性检测中错误地判断某一个随机序列为随机序列的概率</li>
+                    <li id="a40" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="40" value="A" /></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="multiple_test">
+            <a name="name2"></a>
+            <h2>二.多项选择题（共20题，每题2分，错答、漏答均不给分）</h2>
+
+
+            <div class="des">
+                <p>1.下列哪些算法既能实现加解密又能实现签名（ ）。</p>
+                <ul>
+                    <li><input name="12406" type="checkbox" value="A" />&nbsp;A.RSA</li>
+                    <li><input name="12406" type="checkbox" value="B" />&nbsp;B.ElGamal</li>
+                    <li><input name="12406" type="checkbox" value="C" />&nbsp;C.AES</li>
+                    <li><input name="12406" type="checkbox" value="D" />&nbsp;D.DES</li>
+                    <li id="b1" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="1" value="AB" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>2.以下关于HASH函数的说法正确的是（ ）。</p>
+                <ul>
+                    <li><input name="12415" type="checkbox" value="A" />&nbsp;A.输入x可以为任意长度；输出数据串长度固定 </li>
+                    <li><input name="12415" type="checkbox"
+                            value="B" />&nbsp;B.给定任何x，容易算出h=H（x）；而给出一个HASH值h，很难找到一特定输入x，使h=H（x）</li>
+                    <li><input name="12415" type="checkbox" value="C" />&nbsp;C. 给出一个消息x，找出另一个消息y使H（x）=H（y）是计算上不可行的</li>
+                    <li><input name="12415" type="checkbox" value="D" />&nbsp;D.可以找到两个消息x、y，使得H（x）=H（y）</li>
+                    <li id="b2" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="2" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>3.下列密码体制属于计算安全的是（ ）。</p>
+                <ul>
+                    <li><input name="12405" type="checkbox" value="A" />&nbsp;A.RSA</li>
+                    <li><input name="12405" type="checkbox" value="B" />&nbsp;B.ECC</li>
+                    <li><input name="12405" type="checkbox" value="C" />&nbsp;C.AES</li>
+                    <li><input name="12405" type="checkbox" value="D" />&nbsp;D.一次一密系统</li>
+                    <li id="b3" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="3" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>4.DES分组模式有( )?</p>
+                <ul>
+                    <li><input name="12391" type="checkbox" value="A" />&nbsp;A.ECB</li>
+                    <li><input name="12391" type="checkbox" value="B" />&nbsp;B.CBC</li>
+                    <li><input name="12391" type="checkbox" value="C" />&nbsp;C.CFB</li>
+                    <li><input name="12391" type="checkbox" value="D" />&nbsp;D.OFB</li>
+                    <li id="b4" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="4" value="ABCD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>5.标准AES加密算法的密钥长度可以是（ ）</p>
+                <ul>
+                    <li><input name="12363" type="checkbox" value="A" />&nbsp;A.128</li>
+                    <li><input name="12363" type="checkbox" value="B" />&nbsp;B.192</li>
+                    <li><input name="12363" type="checkbox" value="C" />&nbsp;C.64</li>
+                    <li><input name="12363" type="checkbox" value="D" />&nbsp;D.256</li>
+                    <li id="b5" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="5" value="ABD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>6.下列属于HASH函数的是（ ）。</p>
+                <ul>
+                    <li><input name="12399" type="checkbox" value="A" />&nbsp;A.MD5 </li>
+                    <li><input name="12399" type="checkbox" value="B" />&nbsp;B.SHA1</li>
+                    <li><input name="12399" type="checkbox" value="C" />&nbsp;C.AES</li>
+                    <li><input name="12399" type="checkbox" value="D" />&nbsp;D.DES</li>
+                    <li id="b6" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="6" value="AB" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>7.SM3密码杂凑算法的压缩长度可以为多少比特？</p>
+                <ul>
+                    <li><input name="12617" type="checkbox" value="A" />&nbsp;A.2^32 </li>
+                    <li><input name="12617" type="checkbox" value="B" />&nbsp;B.2^48 </li>
+                    <li><input name="12617" type="checkbox" value="C" />&nbsp;C.2^64 </li>
+                    <li><input name="12617" type="checkbox" value="D" />&nbsp;D.任意长度</li>
+                    <li id="b7" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="7" value="AB" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>8.SM3密码杂凑算法的压缩函数的结构和哪些算法相同？</p>
+                <ul>
+                    <li><input name="12622" type="checkbox" value="A" />&nbsp;A.MD5</li>
+                    <li><input name="12622" type="checkbox" value="B" />&nbsp;B.RIPEMD</li>
+                    <li><input name="12622" type="checkbox" value="C" />&nbsp;C.SHA-1</li>
+                    <li><input name="12622" type="checkbox" value="D" />&nbsp;D.SHA-256</li>
+                    <li id="b8" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="8" value="ACD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>9.SM2公钥加密算法的加密函数涉及到哪些运算？</p>
+                <ul>
+                    <li><input name="12625" type="checkbox" value="A" />&nbsp;A.随机数生成</li>
+                    <li><input name="12625" type="checkbox" value="B" />&nbsp;B.杂凑值计算</li>
+                    <li><input name="12625" type="checkbox" value="C" />&nbsp;C.椭圆曲线点乘</li>
+                    <li><input name="12625" type="checkbox" value="D" />&nbsp;D.伪随机比特序列生成</li>
+                    <li id="b9" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="9" value="ABCD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>10.SM3密码杂凑算法能实现的功能有？</p>
+                <ul>
+                    <li><input name="12620" type="checkbox" value="A" />&nbsp;A.数字签名和验证</li>
+                    <li><input name="12620" type="checkbox" value="B" />&nbsp;B.消息认证码的生成与验证</li>
+                    <li><input name="12620" type="checkbox" value="C" />&nbsp;C.随机数的生成</li>
+                    <li><input name="12620" type="checkbox" value="D" />&nbsp;D.加解密数据</li>
+                    <li id="b10" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="10" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>11.ZUC算法密钥装载时LFSR中需要装入（ ）。</p>
+                <ul>
+                    <li><input name="12637" type="checkbox" value="A" />&nbsp;A.种子密钥</li>
+                    <li><input name="12637" type="checkbox" value="B" />&nbsp;B.初始向量</li>
+                    <li><input name="12637" type="checkbox" value="C" />&nbsp;C.16个常数</li>
+                    <li><input name="12637" type="checkbox" value="D" />&nbsp;D.15个常数</li>
+                    <li id="b11" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="11" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>12.SM2公钥加密算法的密文包含哪些元素？</p>
+                <ul>
+                    <li><input name="12626" type="checkbox" value="A" />&nbsp;A.椭圆曲线点乘</li>
+                    <li><input name="12626" type="checkbox" value="B" />&nbsp;B.杂凑值</li>
+                    <li><input name="12626" type="checkbox" value="C" />&nbsp;C.比特串</li>
+                    <li><input name="12626" type="checkbox" value="D" />&nbsp;D.基域元素</li>
+                    <li id="b12" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="12" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>13.ZUC算法结构的核心部分包括（ ）。</p>
+                <ul>
+                    <li><input name="12633" type="checkbox" value="A" />&nbsp;A.LFSR</li>
+                    <li><input name="12633" type="checkbox" value="B" />&nbsp;B.比特重组BR</li>
+                    <li><input name="12633" type="checkbox" value="C" />&nbsp;C.非线性函数F</li>
+                    <li><input name="12633" type="checkbox" value="D" />&nbsp;D.Feistel网络</li>
+                    <li id="b13" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="13" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>14.ZUC算法中使用到的运算包括（ ）。</p>
+                <ul>
+                    <li><input name="12634" type="checkbox" value="A" />&nbsp;A.模2^{31}-1的加法</li>
+                    <li><input name="12634" type="checkbox" value="B" />&nbsp;B.模2^{32}的加法</li>
+                    <li><input name="12634" type="checkbox" value="C" />&nbsp;C.右循环移位</li>
+                    <li><input name="12634" type="checkbox" value="D" />&nbsp;D.左循环移位</li>
+                    <li id="b14" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="14" value="ABD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>15.SM2公钥加密算法可以抵抗哪些攻击？</p>
+                <ul>
+                    <li><input name="12624" type="checkbox" value="A" />&nbsp;A.唯密文攻击</li>
+                    <li><input name="12624" type="checkbox" value="B" />&nbsp;B.选择明文攻击</li>
+                    <li><input name="12624" type="checkbox" value="C" />&nbsp;C.选择密文攻击</li>
+                    <li><input name="12624" type="checkbox" value="D" />&nbsp;D.密钥恢复攻击</li>
+                    <li id="b15" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="15" value="ABCD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>16.在GM/T 0019《通用密码服务接口规范》中，哪些函数可用于信息机密性保护？（ ）</p>
+                <ul>
+                    <li><input name="12548" type="checkbox" value="A" />&nbsp;A.计算会话密钥</li>
+                    <li><input name="12548" type="checkbox" value="B" />&nbsp;B.单块加密运算</li>
+                    <li><input name="12548" type="checkbox" value="C" />&nbsp;C.结束解密运算</li>
+                    <li><input name="12548" type="checkbox" value="D" />&nbsp;D.多组数据消息鉴别码运算</li>
+                    <li id="b16" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="16" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>17.GM/Z 4001《密码术语》中，密钥全生命周期包括（ ）等。</p>
+                <ul>
+                    <li><input name="12531" type="checkbox" value="A" />&nbsp;A.密钥产生</li>
+                    <li><input name="12531" type="checkbox" value="B" />&nbsp;B.密钥存储</li>
+                    <li><input name="12531" type="checkbox" value="C" />&nbsp;C.密钥更新</li>
+                    <li><input name="12531" type="checkbox" value="D" />&nbsp;D.密钥分量</li>
+                    <li id="b17" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="17" value="ABC" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>18.GM/T 0023《IPSec VPN网关产品规范》中，设备自检包括( )等操作。</p>
+                <ul>
+                    <li><input name="12524" type="checkbox" value="A" />&nbsp;A.关键部件的正确性检查</li>
+                    <li><input name="12524" type="checkbox" value="B" />&nbsp;B.密钥等敏感信息的完整性检查</li>
+                    <li><input name="12524" type="checkbox" value="C" />&nbsp;C.随机数生成部件的检查</li>
+                    <li><input name="12524" type="checkbox" value="D" />&nbsp;D.CPU等物理部件的常规检查</li>
+                    <li id="b18" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="18" value="ABCD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>19.GM/T 0021《动态口令密码应用技术规范》动态口令生成算法使用了（ ）的国密算法。</p>
+                <ul>
+                    <li><input name="12519" type="checkbox" value="A" />&nbsp;A.SM1</li>
+                    <li><input name="12519" type="checkbox" value="B" />&nbsp;B.SM2</li>
+                    <li><input name="12519" type="checkbox" value="C" />&nbsp;C.SM3</li>
+                    <li><input name="12519" type="checkbox" value="D" />&nbsp;D.SM4</li>
+                    <li id="b19" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="19" value="CD" /></li>
+                </ul>
+
+            </div>
+
+            <div class="des">
+                <p>20.GM/Z 4001《密码术语》中，哪种算法属于公钥密码算法（ ）</p>
+                <ul>
+                    <li><input name="12546" type="checkbox" value="A" />&nbsp;A.SM9</li>
+                    <li><input name="12546" type="checkbox" value="B" />&nbsp;B.SM2</li>
+                    <li><input name="12546" type="checkbox" value="C" />&nbsp;C.SM3</li>
+                    <li><input name="12546" type="checkbox" value="D" />&nbsp;D.SM4</li>
+                    <li id="b20" style="display: none;">正确答案：<input class="cw" style="border: 0px;" readonly="readonly"
+                            type="text" id="20" value="AB" /></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="trueorfalse_test">
+            <a name="name3"></a>
+            <h2>三.判断题（共20题，每题1分）</h2>
+
+
+            <div class="des_2">
+                <p>1.LWE问题是格上的困难问题。（）</p><br />
+                <p><input name="12438" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12438" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c1" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="1" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>2.Rabin密码体制属于分组密码，是抗选择密文攻击的（ ）</p><br />
+                <p><input name="12445" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12445" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c2" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="2" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>3.专门用来提高软件实现效率的序列密码算法是RC4算法。（ ）</p><br />
+                <p><input name="12475" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12475" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c3" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="3" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>4.著名的Kerberos认证系统采用了对称和非对称加密相结合的技术（ ）。</p><br />
+                <p><input name="12473" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12473" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c4" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="4" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>5.RSA公钥加密算法满足加法同态特性。</p><br />
+                <p><input name="12454" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12454" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c5" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="5" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>6.TLS1.0 版本协议中CBC模式的IV没有使用不可预测的随机数，而是使用了上一次 CBC 模式加密时的最后一个分组，从而导致被攻击。因此，为了防御此类攻击，TLS
+                    1.1以上的版本中要求必须隐式地传送IV。（ ）</p><br />
+                <p><input name="12461" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12461" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c6" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="6" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>7.SM9公钥加密算法消息封装机制包括基于KDF的序列密码及结合KDF的分组密码算法两种类型。</p><br />
+                <p><input name="12680" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12680" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c7" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="7" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>8.SM9密码算法使用256位的BN曲线。</p><br />
+                <p><input name="12672" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12672" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c8" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="8" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>9.在采用SM9数字签名算法生成/验证签名之前，需要使用Hash函数对待签/待验证消息进行压缩。</p><br />
+                <p><input name="12677" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12677" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c9" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="9" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>10.生日攻击是一种密码学攻击手段，基于概率论中生日问题的数学原理。SM3密码杂凑算法可以抵抗生日攻击。</p><br />
+                <p><input name="12653" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12653" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c10" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="10" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>11.SM9密码算法需要保证选取的椭圆曲线上离散对数问题难解。</p><br />
+                <p><input name="12676" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12676" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c11" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="11" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>12.SM9公钥加密算法是密钥封装机制和消息封装机制的结合。</p><br />
+                <p><input name="12679" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12679" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c12" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="12" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>13.SM9密码算法的用户私钥由KGC通过随机数发生器产生。</p><br />
+                <p><input name="12671" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12671" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c13" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="13" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>14.SM3密码杂凑算法的消息填充方式和SHA-256相同。</p><br />
+                <p><input name="12666" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12666" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c14" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="14" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>15.SM9标识密码算法密钥交换过程中不需要计算群中的元素。（ ）</p><br />
+                <p><input name="12664" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12664" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c15" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="15" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>16.我国《密码法》所称密码，是指采用特定变换的方法对信息等进行加密保护、安全认证的技术、产品和服务。（ ）</p><br />
+                <p><input name="12574" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12574" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c16" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="16" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>17.GM/T 0015《基于SM2密码算法的数字证书格式规范》中，CA应确保使用大于20个8位字节的证书序列号。</p><br />
+                <p><input name="12561" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12561" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c17" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="17" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>18.GM/T 0023《IPSec VPN网关产品规范》中规定，IPSec VPN网关产品开机后应重新发起密钥协商。（ ）</p><br />
+                <p><input name="12554" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12554" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c18" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="18" value="T" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>19.GM/T 0005《随机性检测规范》中，“块内频数检测”用于检测整个待检序列中0和1的个数是否相近。</p><br />
+                <p><input name="12562" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12562" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c19" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="19" value="F" /></p>
+            </div>
+
+            <div class="des_2">
+                <p>20.GM/T 0010《SM2密码算法加密签名消息语法规范》中的数字信封envelopedData数据类型由加密数据和至少一个接收者的数据加密密钥的密文组成。</p><br />
+                <p><input name="12565" type="radio"
+                        value="T" />&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                        name="12565" type="radio" value="F" />&nbsp;错误</p>
+                <br />
+                <p id="c20" style="display: none;">正确答案：<input class="cw" style="border: 0px;" name="pdtda"
+                        readonly="readonly" type="text" id="20" value="T" /></p>
+            </div>
+
+        </div>
+        <ul id="tab_bottom">
+            <li class="selected">单项选择题</li>
+            <li>多项选择题</li>
+            <li>判断题</li>
+        </ul>
+    </div>
+
+    <div id="exercise_submit" style="display:none">
+        <a id="esjj" href="javascript:;" onclick="check_paper();"><img src="../images/exercise_submit.gif"
+                alt="交卷" /></a>
+    </div>
+
+    <div id="footer">
+        <p id="footer_content">
+            Copyright (c) 2015 |
+            Designed by <a href='https://www.cistsec.com.cn' target="_blank">灵创智恒软件技术有限公司</a>
+        </p> <!-- end of footer -->
+    </div> <!-- end of footer_wrapper -->
+
+</body>
+
+</html>
